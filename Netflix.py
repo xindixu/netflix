@@ -49,6 +49,9 @@ decade_avg_cache = {1990: 2.4}
 # netflix_eval
 # ------------
 
+# Toughts
+# 1. weighting: time & cunstomer record number
+
 def netflix_eval(reader, writer) :
     predictions = []
     actual = []
@@ -57,7 +60,7 @@ def netflix_eval(reader, writer) :
     for line in reader:
     # need to get rid of the '\n' by the end of the line
         line = line.strip()
-        # check if the line ends with a ":", i.e., it's a movie title 
+        # check if the line ends with a ":", i.e., it's a movie title
         if line[-1] == ':':
 		# It's a movie
             current_movie = line.rstrip(':')
@@ -71,9 +74,10 @@ def netflix_eval(reader, writer) :
             current_customer = line
             predictions.append(prediction)
             actual.append(actual_scores_cache[int(current_movie)][int(current_customer)])
-            writer.write(str(prediction)) 
-            writer.write('\n')	
+            writer.write(str(prediction))
+            writer.write('\n')
+
     # calculate rmse for predications and actuals
+    # TODO: format: need to 2 decimal places
     rmse = sqrt(mean(square(subtract(predictions, actual))))
     writer.write(str(rmse)[:4] + '\n')
-
