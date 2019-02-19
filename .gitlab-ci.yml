@@ -1,0 +1,13 @@
+before_script:
+    - date
+    - uname -a
+    - pip install --upgrade pip
+    - pip install -r requirements.txt
+    - make versions	
+    - printenv | sort
+
+netflix:
+    image: "python:3.5"
+    script:
+    - ls -al
+    - make test
