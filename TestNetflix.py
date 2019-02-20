@@ -20,7 +20,7 @@ class TestNetflix (TestCase):
     # ----
     # corner cases:
     # 1. duplicate customer ID (a person rated twice)
-    # 2.
+  
     def test_eval_1(self):
         r = StringIO("10040:\n2417853\n1207062\n2487973\n")
         w = StringIO()

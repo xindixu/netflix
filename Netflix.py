@@ -10,7 +10,7 @@ from requests import get
 from os import path
 from numpy import sqrt, square, mean, subtract
 
-'''
+
 def create_cache(filename):
     """
     filename is the name of the cache file to load
@@ -39,7 +39,7 @@ AVERAGE_MOVIE_RATING_PER_YEAR = create_cache(
 YEAR_OF_RATING = create_cache("cache-yearCustomerRatedMovie.pickle")
 CUSTOMER_AVERAGE_RATING_YEARLY = create_cache(
     "cache-customerAverageRatingByYear.pickle")
-'''
+
 
 actual_scores_cache ={10040: {2417853: 1, 1207062: 2, 2487973: 3}}
 movie_year_cache = {10040: 1990}

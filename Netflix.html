@@ -8,7 +8,7 @@
 <td valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>Netflix</strong></big></big></font></td
 ><td align=right valign=bottom
-><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:e%3A%5Cut_august_2018%5Cgitlab%5Ccs329e-netflix%5Cnetflix.py">e:\ut_august_2018\gitlab\cs329e-netflix\netflix.py</a></font></td></tr></table>
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/u/xx2673/netflix/Netflix.py">/u/xx2673/netflix/Netflix.py</a></font></td></tr></table>
     <p><tt>#&nbsp;-------<br>
 #&nbsp;imports<br>
 #&nbsp;-------</tt></p>
@@ -19,7 +19,7 @@
 <font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
     
 <tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
-<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="ntpath.html">ntpath</a><br>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="posixpath.html">posixpath</a><br>
 </td><td width="25%" valign=top><a href="pickle.html">pickle</a><br>
 </td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
@@ -28,7 +28,9 @@
 <font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
     
 <tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
-<td width="100%"><dl><dt><a name="-netflix_eval"><strong>netflix_eval</strong></a>(reader, writer)</dt></dl>
+<td width="100%"><dl><dt><a name="-create_cache"><strong>create_cache</strong></a>(filename)</dt><dd><tt>filename&nbsp;is&nbsp;the&nbsp;name&nbsp;of&nbsp;the&nbsp;cache&nbsp;file&nbsp;to&nbsp;load<br>
+returns&nbsp;a&nbsp;dictionary&nbsp;after&nbsp;loading&nbsp;the&nbsp;file&nbsp;or&nbsp;pulling&nbsp;the&nbsp;file&nbsp;from&nbsp;the&nbsp;public_html&nbsp;page</tt></dd></dl>
+ <dl><dt><a name="-netflix_eval"><strong>netflix_eval</strong></a>(reader, writer)</dt></dl>
 </td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#55aa55">
@@ -36,7 +38,12 @@
 <font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
     
 <tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
-<td width="100%"><strong>actual_scores_cache</strong> = {10040: {1207062: 2, 2417853: 1, 2487973: 3}}<br>
+<td width="100%"><strong>ACTUAL_CUSTOMER_RATING</strong> = {(6, 501): 3, (6, 658): 3, (6, 825): 3, (7, 285): 5, (7, 6408): 5, (7, 8393): 3, (7, 9217): 5, (7, 14759): 3, (8, 1144): 4, (8, 1202): 5, ...}<br>
+<strong>AVERAGE_MOVIE_RATING_PER_YEAR</strong> = {(1, 2004): 3.588, (1, 2005): 3.842, (2, 2004): 3.471, (2, 2005): 3.57, (3, 2003): 3.605, (3, 2004): 3.685, (3, 2005): 3.63, (4, 2003): 1.286, (4, 2004): 2.975, (4, 2005): 2.582, ...}<br>
+<strong>AVERAGE_RATING</strong> = 3.60428996442<br>
+<strong>CUSTOMER_AVERAGE_RATING_YEARLY</strong> = {(6, 2004): 3.604, (6, 2005): 3.229, (7, 2002): 5.0, (7, 2003): 3.625, (7, 2004): 4.005, (7, 2005): 4.021, (8, 2005): 4.214, (10, 2002): 4.0, (10, 2003): 3.224, (10, 2004): 3.24, ...}<br>
+<strong>YEAR_OF_RATING</strong> = {(6, 501): 2005, (6, 658): 2005, (6, 825): 2005, (7, 285): 2005, (7, 6408): 2005, (7, 8393): 2005, (7, 9217): 2005, (7, 14759): 2005, (8, 1144): 2005, (8, 1202): 2005, ...}<br>
+<strong>actual_scores_cache</strong> = {10040: {1207062: 2, 2417853: 1, 2487973: 3}}<br>
 <strong>decade_avg_cache</strong> = {1990: 2.4}<br>
 <strong>movie_year_cache</strong> = {10040: 1990}<br>
 <strong>sqrt</strong> = &lt;ufunc 'sqrt'&gt;<br>
