@@ -32,11 +32,18 @@ def create_cache(filename):
 
 
 AVERAGE_RATING = 3.60428996442
+
+# cID: rt
 ACTUAL_CUSTOMER_RATING = create_cache(
     "cache-actualCustomerRating.pickle")
+# (mID, yr): rt
 AVERAGE_MOVIE_RATING_PER_YEAR = create_cache(
     "cache-movieAverageByYear.pickle")
+
+# (cID, mID): yr
 YEAR_OF_RATING = create_cache("cache-yearCustomerRatedMovie.pickle")
+
+# (cID, yr): rt
 CUSTOMER_AVERAGE_RATING_YEARLY = create_cache(
     "cache-customerAverageRatingByYear.pickle")
 
