@@ -58,6 +58,10 @@ decade_avg_cache = {1990: 2.4}
 
 # Toughts
 # 1. weighting: time & cunstomer record number
+# if the customer has previously commented the movie, we will use that rating combined with customer average rating of that year and moive rating of that year
+# cache used (cID, mID): yr, (cID, yr): rt and (mID, yr): rt
+# if the customer has not commented that movie before, we will use the average rating of that customer, average rating of that movie
+# cache used (cID): rt, (mID): rt
 
 def netflix_eval(reader, writer) :
     predictions = []
