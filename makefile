@@ -53,7 +53,7 @@ RunNetflix.tmp: RunNetflix.in RunNetflix.out RunNetflix.py
 	$(PYTHON) RunNetflix.py < RunNetflix.in > RunNetflix.tmp
 	diff --strip-trailing-cr RunNetflix.tmp RunNetflix.out
 
-TestNetflix.tmp: TestNetflix.py
+TestNetflix.tmp: TestNetflix.py Netflix.py
 	$(COVERAGE) run    --branch TestNetflix.py >  TestNetflix.tmp 2>&1
 	$(COVERAGE) report -m                      >> TestNetflix.tmp
 	cat TestNetflix.tmp
@@ -105,7 +105,7 @@ status:
 	git branch
 	git remote -v
 	git status
-	
+
 versions:
 	which     $(AUTOPEP8)
 	autopep8 --version
