@@ -33,22 +33,28 @@ def create_cache(filename):
 
 AVERAGE_RATING = 3.60428996442
 
+
+ACTUAL_CUSTOMER_RATING = create_cache("cache-actualCustomerRating.pickle")
+
 # cID: rt
-ACTUAL_CUSTOMER_RATING = create_cache(
-    "cache-actualCustomerRating.pickle")
+AVERAGE_CUSTOMER_RATING = create_cache("cache-averageCustomerRating.pickle")
+
+# mID: rt
+AVERAGE_MOVIE_RATING = create_cache("cache-averageMovieRating.pickle")
+
+# (cID, yr): rt
+AVERAGE_CUSTOMER_RATING_PER_YEAR = create_cache("cache-customerAverageRatingByYear.pickle")
+
 # (mID, yr): rt
-AVERAGE_MOVIE_RATING_PER_YEAR = create_cache(
-    "cache-movieAverageByYear.pickle")
+AVERAGE_MOVIE_RATING_PER_YEAR = create_cache("cache-movieAverageByYear.pickle")
 
 # (cID, mID): yr
 YEAR_OF_RATING = create_cache("cache-yearCustomerRatedMovie.pickle")
 
-# (cID, yr): rt
-CUSTOMER_AVERAGE_RATING_YEARLY = create_cache(
-    "cache-customerAverageRatingByYear.pickle")
+# (cID, mID): rt
+ACTUAL_CUSTOMER_RATING = create_cache("cache-actualCustomerRating.pickle")
 
-
-actual_scores_cache ={10040: {2417853: 1, 1207062: 2, 2487973: 3}}
+actual_scores_cache = {10040: {2417853: 1, 1207062: 2, 2487973: 3}}
 movie_year_cache = {10040: 1990}
 decade_avg_cache = {1990: 2.4}
 
@@ -66,7 +72,7 @@ decade_avg_cache = {1990: 2.4}
 def netflix_eval(reader, writer) :
     predictions = []
     actual = []
-
+    mID = 0
     # iterate throught the file reader line by line
     for line in reader:
     # need to get rid of the '\n' by the end of the line
@@ -74,17 +80,24 @@ def netflix_eval(reader, writer) :
         # check if the line ends with a ":", i.e., it's a movie title
         if line[-1] == ':':
 		# It's a movie
-            current_movie = line.rstrip(':')
-            pred = movie_year_cache[int(current_movie)]
-            pred = (pred // 10) *10
-            prediction = decade_avg_cache[pred]
+            mID = int(line.rstrip(':'))
+            avg_movie_rating = AVERAGE_MOVIE_RATING[mID]
             writer.write(line)
             writer.write('\n')
         else:
 		# It's a customer
-            current_customer = line
+            cID = int(line)
+            if mID in YEAR_OF_RATING[cID]:
+                yr = YEAR_OF_RATING[cID][mID]
+                movie_rating = AVERAGE_MOVIE_RATING_PER_YEAR[mID][yr]
+                customer_rating = AVERAGE_CUSTOMER_RATING_PER_YEAR[cID][yr]
+                # movie_customer_rating = ACTUAL_CUSTOMER_RATING[cID][mID]
+
+                pred = (movie_rating + customer_rating)/2
+                predictions.append(prediction)
+
             predictions.append(prediction)
-            actual.append(actual_scores_cache[int(current_movie)][int(current_customer)])
+            actual.append(ACTUAL_CUSTOMER_RATING[mID][cID])
             writer.write(str(prediction))
             writer.write('\n')
 
