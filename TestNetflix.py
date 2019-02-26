@@ -18,16 +18,30 @@ class TestNetflix (TestCase):
     # ----
     # eval
     # ----
-    # corner cases:
-    # 1. duplicate customer ID (a person rated twice)
+
 
     def test_eval_1(self):
-        r = StringIO("1:\n30878\n2647871\n1283744\n")
+        r = StringIO("10040:\n2417853\n1207062\n2487973\n")
         w = StringIO()
         netflix_eval(r, w)
         self.assertEqual(
-            w.getvalue(), "1:\n1\n1.2\n2.1\n0.95\n")
+            w.getvalue(), "10040:\n3.3\n3.2\n3.6\n0.83\n")
 
+    # test if it works when there is only one customer
+    def test_eval_2(self):
+        r = StringIO("9999:\n1473765\n")
+        w = StringIO()
+        netflix_eval(r, w)
+        pred = w.getvalue().split('\n')
+        self.assertEqual(len(pred),4)
+
+    # test if rmse is less than 1
+    def test_rmse(self):
+        r = StringIO("1:\n30878\n2647871\n1283744\n")
+        w = StringIO()
+        netflix_eval(r, w)
+        rmse = float(w.getvalue()[-5:])
+        self.assertTrue(rmse<1)
 # ----
 # main
 # ----
