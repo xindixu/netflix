@@ -43,20 +43,20 @@ AVERAGE_CUSTOMER_RATING = create_cache("cache-averageCustomerRating.pickle")
 AVERAGE_MOVIE_RATING = create_cache("cache-averageMovieRating.pickle")
 
 # (cID, yr): rt
-AVERAGE_CUSTOMER_RATING_PER_YEAR = create_cache("cache-customerAverageRatingByYear.pickle")
+# AVERAGE_CUSTOMER_RATING_PER_YEAR = create_cache("cache-customerAverageRatingByYear.pickle")
 
 # (mID, yr): rt
-AVERAGE_MOVIE_RATING_PER_YEAR = create_cache("cache-movieAverageByYear.pickle")
+# AVERAGE_MOVIE_RATING_PER_YEAR = create_cache("cache-movieAverageByYear.pickle")
 
 # (cID, mID): yr
-YEAR_OF_RATING = create_cache("cache-yearCustomerRatedMovie.pickle")
+# YEAR_OF_RATING = create_cache("cache-yearCustomerRatedMovie.pickle")
 
 # (cID, mID): rt
 ACTUAL_CUSTOMER_RATING = create_cache("cache-actualCustomerRating.pickle")
 
-actual_scores_cache = {10040: {2417853: 1, 1207062: 2, 2487973: 3}}
-movie_year_cache = {10040: 1990}
-decade_avg_cache = {1990: 2.4}
+# actual_scores_cache = {10040: {2417853: 1, 1207062: 2, 2487973: 3}}
+# movie_year_cache = {10040: 1990}
+# decade_avg_cache = {1990: 2.4}
 
 # ------------
 # netflix_eval
@@ -87,18 +87,20 @@ def netflix_eval(reader, writer) :
         else:
 		# It's a customer
             cID = int(line)
-            if mID in YEAR_OF_RATING[cID]:
-                yr = YEAR_OF_RATING[cID][mID]
-                movie_rating = AVERAGE_MOVIE_RATING_PER_YEAR[mID][yr]
-                customer_rating = AVERAGE_CUSTOMER_RATING_PER_YEAR[cID][yr]
-                # movie_customer_rating = ACTUAL_CUSTOMER_RATING[cID][mID]
+            # yr = YEAR_OF_RATING[(cID,mID)]
+            # if yr is not None:
+            #if (cID,mId) in YEAR_OF_RATING:
 
-                pred = (movie_rating + customer_rating)/2
-                predictions.append(prediction)
+            customer_rating = AVERAGE_CUSTOMER_RATING[cID]
+            movie_rating = AVERAGE_MOVIE_RATING[mID]
 
-            predictions.append(prediction)
-            actual.append(ACTUAL_CUSTOMER_RATING[mID][cID])
-            writer.write(str(prediction))
+            # movie_rating = AVERAGE_MOVIE_RATING_PER_YEAR[(mID,yr)]
+            # customer_rating = AVERAGE_CUSTOMER_RATING_PER_YEAR[(cID,yr)]
+
+            pred = (movie_rating + customer_rating)/2
+            predictions.append(pred)
+            actual.append(ACTUAL_CUSTOMER_RATING[(cID,mID)])
+            writer.write(str(pred))
             writer.write('\n')
 
     # calculate rmse for predications and actuals
