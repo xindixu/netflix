@@ -49,13 +49,13 @@ Netflix.html: Netflix.py
 Netflix.log:
 	git log > Netflix.log
 
-RunNetflix.tmp: RunNetflix.in RunNetflix.out RunNetflix.py
+RunNetflix.tmp: RunNetflix.in RunNetflix.out RunNetflix.py Netflix.py
 	$(PYTHON) RunNetflix.py < RunNetflix.in > RunNetflix.tmp
 	diff --strip-trailing-cr RunNetflix.tmp RunNetflix.out
 
 TestNetflix.tmp: TestNetflix.py Netflix.py
 	$(COVERAGE) run    --branch TestNetflix.py >  TestNetflix.tmp 2>&1
-	$(COVERAGE) report -m                      >> TestNetflix.tmp
+	$(COVERAGE) report -m --omit=/usr/lib/python3/dist-packages/* >> TestNetflix.tmp
 	cat TestNetflix.tmp
 
 check:

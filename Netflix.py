@@ -46,13 +46,16 @@ AVERAGE_MOVIE_RATING = create_cache("cache-averageMovieRating.pickle")
 # AVERAGE_CUSTOMER_RATING_PER_YEAR = create_cache("cache-customerAverageRatingByYear.pickle")
 
 # (mID, yr): rt
-# AVERAGE_MOVIE_RATING_PER_YEAR = create_cache("cache-movieAverageByYear.pickle")
+AVERAGE_MOVIE_RATING_PER_YEAR = create_cache("cache-movieAverageByYear.pickle")
 
 # (cID, mID): yr
 # YEAR_OF_RATING = create_cache("cache-yearCustomerRatedMovie.pickle")
 
 # (cID, mID): rt
 ACTUAL_CUSTOMER_RATING = create_cache("cache-actualCustomerRating.pickle")
+
+# mID : yr
+MOVIE_RELEASE_YEAR = create_cache('yz8896-movie_year_cache.pickle')
 
 # ------------
 # netflix_eval
@@ -76,7 +79,6 @@ def netflix_eval(reader, writer):
         # check if the line ends with a ":", i.e., it's a movie title
         if line[-1] == ':':
 		# It's a movie
-
             mID = int(line.rstrip(':'))
             assert 1<=mID<=17770
             assert isinstance(mID,int)
@@ -93,10 +95,16 @@ def netflix_eval(reader, writer):
             customer_rating = AVERAGE_CUSTOMER_RATING[cID]
             movie_rating = AVERAGE_MOVIE_RATING[mID]
 
+            yr = MOVIE_RELEASE_YEAR[mID]
+
+            print(AVERAGE_MOVIE_RATING_PER_YEAR[(3908)])
             # movie_rating = AVERAGE_MOVIE_RATING_PER_YEAR[(mID,yr)]
+
             # customer_rating = AVERAGE_CUSTOMER_RATING_PER_YEAR[(cID,yr)]
 
-            pred = round((movie_rating + customer_rating)/2,1)
+            # pred = round((movie_rating + AVERAGE_RATING + 2*customer_rating)/4,1)
+            pred = round((movie_rating * AVERAGE_RATING * customer_rating**5)**(1/7),1)
+
             assert 1<=pred<=5
 
             predictions.append(pred)
@@ -107,5 +115,7 @@ def netflix_eval(reader, writer):
     # calculate rmse for predications and actuals
     # TODO: format: need to 2 decimal places
     rmse = sqrt(mean(square(subtract(predictions, actual))))
-    assert rmse < 1
+    print('rmse:',rmse)
+    assert rmse >0
+
     writer.write(str(rmse)[:4] + '\n')
