@@ -9,6 +9,8 @@ import pickle
 from requests import get
 from os import path
 from numpy import sqrt, square, mean, subtract
+import operator
+import functools
 
 
 def create_cache(filename):
@@ -25,8 +27,8 @@ def create_cache(filename):
     else:
         webAddress = "http://www.cs.utexas.edu/users/fares/netflix-caches/" + \
             filename
-        bytes = get(webAddress).content
-        cache = pickle.loads(bytes)
+        file = get(webAddress).content
+        cache = pickle.load(file)
 
     return cache
 
@@ -43,7 +45,7 @@ AVERAGE_CUSTOMER_RATING = create_cache("cache-averageCustomerRating.pickle")
 AVERAGE_MOVIE_RATING = create_cache("cache-averageMovieRating.pickle")
 
 # (cID, yr): rt
-# AVERAGE_CUSTOMER_RATING_PER_YEAR = create_cache("cache-customerAverageRatingByYear.pickle")
+AVERAGE_CUSTOMER_RATING_PER_YEAR = create_cache("cache-customerAverageRatingByYear.pickle")
 
 # (mID, yr): rt
 AVERAGE_MOVIE_RATING_PER_YEAR = create_cache("cache-movieAverageByYear.pickle")
@@ -55,7 +57,7 @@ AVERAGE_MOVIE_RATING_PER_YEAR = create_cache("cache-movieAverageByYear.pickle")
 ACTUAL_CUSTOMER_RATING = create_cache("cache-actualCustomerRating.pickle")
 
 # mID : yr
-MOVIE_RELEASE_YEAR = create_cache('yz8896-movie_year_cache.pickle')
+MOVIE_RELEASE_YEAR = create_cache("yz8896-movie_year_cache.pickle")
 
 # ------------
 # netflix_eval
@@ -72,18 +74,18 @@ def netflix_eval(reader, writer):
     predictions = []
     actual = []
     mID = 0
+
     # iterate throught the file reader line by line
     for line in reader:
     # need to get rid of the '\n' by the end of the line
         line = line.strip()
         # check if the line ends with a ":", i.e., it's a movie title
+
         if line[-1] == ':':
 		# It's a movie
             mID = int(line.rstrip(':'))
             assert 1<=mID<=17770
             assert isinstance(mID,int)
-
-            avg_movie_rating = AVERAGE_MOVIE_RATING[mID]
             writer.write(line)
             writer.write('\n')
         else:
@@ -97,13 +99,43 @@ def netflix_eval(reader, writer):
 
             yr = MOVIE_RELEASE_YEAR[mID]
 
-            print(AVERAGE_MOVIE_RATING_PER_YEAR[(3908)])
-            # movie_rating = AVERAGE_MOVIE_RATING_PER_YEAR[(mID,yr)]
+            # for key,value in AVERAGE_MOVIE_RATING_PER_YEAR.items():
+            #     print(key,value)
+            movie_rating_year_sum = []
+            customer_rating_year_sum = []
 
-            # customer_rating = AVERAGE_CUSTOMER_RATING_PER_YEAR[(cID,yr)]
+            if 1998 <= yr <= 2005:
+                # add rating of the release year
+                if (cID,yr) in AVERAGE_CUSTOMER_RATING_PER_YEAR:
+                    customer_rating_year_sum += [AVERAGE_CUSTOMER_RATING_PER_YEAR[(cID,yr)]]
 
-            # pred = round((movie_rating + AVERAGE_RATING + 2*customer_rating)/4,1)
-            pred = round((movie_rating * AVERAGE_RATING * customer_rating**5)**(1/7),1)
+                for i in range(2):
+                    if (mID,yr+i) in AVERAGE_MOVIE_RATING_PER_YEAR:
+                        movie_rating_year_sum += [AVERAGE_MOVIE_RATING_PER_YEAR[(mID,yr+i)]]
+            else:
+                for i in range(2):
+                    if (mID,2004+i) in AVERAGE_MOVIE_RATING_PER_YEAR:
+                        movie_rating_year_sum += [AVERAGE_MOVIE_RATING_PER_YEAR[(mID,2004+i)]]
+
+            if len(movie_rating_year_sum) == 0:
+                avg_movie_rating = movie_rating
+            else:
+                avg_movie_rating = sum(movie_rating_year_sum)/len(movie_rating_year_sum)
+                # avg_movie_rating = functools.reduce(operator.mul,movie_rating_year_sum,1)**(1/len(movie_rating_year_sum))
+
+
+            for j in range(2005,2006):
+                if (cID,j) in AVERAGE_CUSTOMER_RATING_PER_YEAR:
+                    customer_rating_year_sum += [AVERAGE_CUSTOMER_RATING_PER_YEAR[(cID,j)]]
+
+            if len(customer_rating_year_sum) == 0:
+                avg_customer_rating = customer_rating
+            else:
+                avg_customer_rating = sum(customer_rating_year_sum)/len(customer_rating_year_sum)
+                #avg_customer_rating = functools.reduce(operator.mul,customer_rating_year_sum,1)**(1/len(customer_rating_year_sum))
+
+            # pred = round((avg_movie_rating*1 + avg_customer_rating*1.5)/2.5,1)
+            pred = min(round(( avg_movie_rating * avg_customer_rating**1.1 * customer_rating**1.4 * movie_rating)**(1/4.5)*1.015-0.07,1),5.0)
 
             assert 1<=pred<=5
 
