@@ -51,7 +51,6 @@ Netflix.log:
 
 RunNetflix.tmp: RunNetflix.in RunNetflix.out RunNetflix.py Netflix.py
 	$(PYTHON) RunNetflix.py < RunNetflix.in > RunNetflix.tmp
-	# $(PYTHON) RunNetflix.py < probe.txt > RunNetflix.tmp
 	diff --strip-trailing-cr RunNetflix.tmp RunNetflix.out
 
 TestNetflix.tmp: TestNetflix.py Netflix.py
