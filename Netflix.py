@@ -24,8 +24,8 @@ def create_cache(filename):
     else:
         webAddress = "http://www.cs.utexas.edu/users/fares/netflix-caches/" + \
             filename
-        file = get(webAddress).content
-        cache = pickle.load(file)
+        bytes = get(webAddress).content
+        cache = pickle.loads(bytes)
 
     return cache
 
@@ -33,8 +33,7 @@ def create_cache(filename):
 AVERAGE_RATING = 3.60428996442
 
 # (cID, yr): rt
-AVERAGE_CUSTOMER_RATING_PER_YEAR = create_cache(
-    "cache-customerAverageRatingByYear.pickle")
+AVERAGE_CUSTOMER_RATING_PER_YEAR = create_cache("cache-customerAverageRatingByYear.pickle")
 
 # (mID, yr): rt
 AVERAGE_MOVIE_RATING_PER_YEAR = create_cache("cache-movieAverageByYear.pickle")
