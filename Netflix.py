@@ -24,8 +24,9 @@ def create_cache(filename):
     else:
         webAddress = "http://www.cs.utexas.edu/users/fares/netflix-caches/" + \
             filename
-        file = get(webAddress).content
-        cache = pickle.load(file)
+        bytes = get(webAddress).content
+        cache = pickle.loads(bytes)
+
 
     return cache
 
