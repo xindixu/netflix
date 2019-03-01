@@ -25,7 +25,7 @@ class TestNetflix (TestCase):
         w = StringIO()
         netflix_eval(r, w)
         self.assertEqual(
-            w.getvalue(), "10040:\n3.3\n3.2\n3.6\n0.83\n")
+            w.getvalue(), "10040:\n3.6\n3.5\n3.9\n0.89\n")
 
     # test if it works when there is only one customer
     def test_eval_2(self):
