@@ -1,3 +1,163 @@
+commit 1bcc91f42887db2edbb788ea6099ecdbea5c2cbc
+Author: Xindi Xu <xindixu@utexas.edu>
+Date:   Thu Feb 28 21:49:11 2019 -0600
+
+    retry
+
+commit 7ad5c4c789708989612cabeeefba4f1f1ea89b48
+Author: Xindi Xu <xindixu@utexas.edu>
+Date:   Thu Feb 28 21:41:35 2019 -0600
+
+    retry
+
+commit 7307f8158ebd7faed8e5583f5a4bc04f96191556
+Author: Xindi Xu <xindixu@utexas.edu>
+Date:   Thu Feb 28 21:41:21 2019 -0600
+
+    retry
+
+commit ab1ed081b48f5cdf8ed1e1add7bcdd10702d4008
+Author: Xindi Xu <xindixu@utexas.edu>
+Date:   Thu Feb 28 21:38:31 2019 -0600
+
+    retry
+
+commit 7adffe5a58e3d282e07bd84dc053a2f700b2140b
+Author: Xindi Xu <xindixu@utexas.edu>
+Date:   Thu Feb 28 21:35:21 2019 -0600
+
+    changed make file
+
+commit f5843b07cf1bf4c9941b4bd00bad5725cbe25e9c
+Author: Xindi Xu <xindixu@utexas.edu>
+Date:   Thu Feb 28 21:33:33 2019 -0600
+
+    resolve conflict
+
+commit 332df0122c8c303d4abdbc9034e9e804398471a7
+Merge: 3d83e92 b4af9fc
+Author: Xindi Xu <xindixu@utexas.edu>
+Date:   Thu Feb 28 21:30:39 2019 -0600
+
+    merge
+
+commit b4af9fce36e480ac21f3b7f0528c597469bf20f1
+Author: Xindi Xu <xindixu@utexas.edu>
+Date:   Thu Feb 28 21:27:37 2019 -0600
+
+    retry build
+
+commit 744e7b698766c9161041cbdace52df7211c62341
+Author: Xindi Xu <xindixu@utexas.edu>
+Date:   Thu Feb 28 21:23:38 2019 -0600
+
+    downgrade
+
+commit 92b8c45bb6478966e4c3791d46a5317724a834f2
+Author: Xindi Xu <xindixu@utexas.edu>
+Date:   Thu Feb 28 21:19:00 2019 -0600
+
+    change python version
+
+commit 436ae90819bccf53620592793e9317c30a7a351b
+Author: Xindi Xu <xindixu@utexas.edu>
+Date:   Thu Feb 28 21:15:38 2019 -0600
+
+    changed cache to build
+
+commit d3a85a1017db1d7cc811b23daca63691ad3bace3
+Author: Xindi Xu <xindixu@utexas.edu>
+Date:   Thu Feb 28 21:12:45 2019 -0600
+
+    documentation & format & ready to submit
+
+commit 909cbfe2e7bc0f47790533559d435e34db70d00f
+Author: Xindi Xu <xindixu@utexas.edu>
+Date:   Thu Feb 28 18:43:43 2019 -0600
+
+    more acceptance test
+
+commit 3d83e9297dac62d7b96966c817d68e58ac3a37a4
+Author: cloudashD <yiranzhang@utexas.edu>
+Date:   Thu Feb 28 18:23:39 2019 -0600
+
+    0,98
+
+commit 3a017bb00a257acf4a0069f26a9ae7d54e97dd14
+Author: cloudashD <yiranzhang@utexas.edu>
+Date:   Thu Feb 28 18:17:18 2019 -0600
+
+    0.98
+
+commit 29acac842fc5f0323e24b3929cd9df27f3ff4bc4
+Author: Xindi Xu <xindixu@utexas.edu>
+Date:   Wed Feb 27 18:09:17 2019 -0600
+
+    changed target to pass CI
+
+commit 52782a4bfa63ee9064d43351561db0cb095f063d
+Author: Xindi Xu <xindixu@utexas.edu>
+Date:   Wed Feb 27 18:06:06 2019 -0600
+
+    rmse = 0.99!
+
+commit e7ea184ae56a48b22676fb498e268dcac772572c
+Author: Xindi Xu <xindixu@utexas.edu>
+Date:   Wed Feb 27 14:59:17 2019 -0600
+
+    add acceptance test
+
+commit 55a4c7511f8d1fea42be97f15568bfb3790de46c
+Author: Xindi Xu <xindixu@utexas.edu>
+Date:   Tue Feb 26 16:39:42 2019 -0600
+
+    change runNetlix.out for CI
+
+commit 3e432c91d8f15c77f40d6fe771f195d684e0e729
+Author: Xindi Xu <xindixu@utexas.edu>
+Date:   Tue Feb 26 16:36:13 2019 -0600
+
+    test corner cases, assert check in netflix_eval()
+
+commit f1fd918b4d1a8b90bee82da3cdf95ef34ab98ad5
+Author: Xindi Xu <xindixu@utexas.edu>
+Date:   Tue Feb 26 15:50:43 2019 -0600
+
+    successfully ran out
+
+commit f87cc4295b51b4bb5add215db69356bb57c296cf
+Author: Xindi Xu <xindixu@utexas.edu>
+Date:   Wed Feb 20 15:01:50 2019 -0600
+
+    add & use cache
+
+commit e04376dcf365a7cbcf3c82970a1ac60ea79e7daa
+Author: cloudashD <yiranzhang@utexas.edu>
+Date:   Wed Feb 20 14:23:18 2019 -0600
+
+    more thoughts
+
+commit 74e9622025f5e67638179373c5b4c9f9dd83df3b
+Merge: 72576cd 24db102
+Author: cloudashD <yiranzhang@utexas.edu>
+Date:   Wed Feb 20 13:46:04 2019 -0600
+
+    merge log
+
+commit 72576cd022c50a041ee958517efa524e94d720d0
+Author: cloudashD <yiranzhang@utexas.edu>
+Date:   Wed Feb 20 13:43:19 2019 -0600
+
+    commit on another remote
+
+commit 24db1023101bd29856b198227d8aa7cd79643e18
+Merge: 076f3dc 524c292
+Author: Xindi Xu <xx2673@cs.utexas.edu>
+Date:   Wed Feb 20 13:34:47 2019 -0600
+
+    Merge branch 'dev'
+    merge
+
 commit 524c2925bff1d0fb7858011aa293d290c33d6678
 Author: Xindi Xu <xx2673@cs.utexas.edu>
 Date:   Wed Feb 20 13:34:17 2019 -0600
@@ -15,6 +175,12 @@ Author: Xindi Xu <xindixu@utexas.edu>
 Date:   Tue Feb 19 17:00:52 2019 -0600
 
     test 2
+
+commit 076f3dc0bf1e24432564017a7eb7c272db78908c
+Author: Xindi Xu <xindixu@utexas.edu>
+Date:   Tue Feb 19 15:47:08 2019 -0600
+
+    remove test folder
 
 commit 064b1debcb76be23e45eb712480daca71b3393c7
 Author: Xindi Xu <xindixu@utexas.edu>
