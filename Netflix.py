@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
 
-# -------
-# imports
-# -------
 
 from math import sqrt
 import pickle
@@ -35,23 +32,12 @@ def create_cache(filename):
 
 AVERAGE_RATING = 3.60428996442
 
-
-ACTUAL_CUSTOMER_RATING = create_cache("cache-actualCustomerRating.pickle")
-
-# cID: rt
-AVERAGE_CUSTOMER_RATING = create_cache("cache-averageCustomerRating.pickle")
-
-# mID: rt
-AVERAGE_MOVIE_RATING = create_cache("cache-averageMovieRating.pickle")
-
 # (cID, yr): rt
-AVERAGE_CUSTOMER_RATING_PER_YEAR = create_cache("cache-customerAverageRatingByYear.pickle")
+AVERAGE_CUSTOMER_RATING_PER_YEAR = create_cache(
+    "cache-customerAverageRatingByYear.pickle")
 
 # (mID, yr): rt
 AVERAGE_MOVIE_RATING_PER_YEAR = create_cache("cache-movieAverageByYear.pickle")
-
-# (cID, mID): yr
-# YEAR_OF_RATING = create_cache("cache-yearCustomerRatedMovie.pickle")
 
 # (cID, mID): rt
 ACTUAL_CUSTOMER_RATING = create_cache("cache-actualCustomerRating.pickle")
@@ -63,91 +49,89 @@ MOVIE_RELEASE_YEAR = create_cache("yz8896-movie_year_cache.pickle")
 # netflix_eval
 # ------------
 
-# Toughts
-# 1. weighting: time & cunstomer record number
-# if the customer has previously commented the movie, we will use that rating combined with customer average rating of that year and moive rating of that year
-# cache used (cID, mID): yr, (cID, yr): rt and (mID, yr): rt
-# if the customer has not commented that movie before, we will use the average rating of that customer, average rating of that movie
-# cache used (cID): rt, (mID): rt
 
 def netflix_eval(reader, writer):
+    """
+    1. read the file line by line
+    2. if the line indicates a movie (ends with ':')
+        2.1 save the mID and validate it
+
+        2.2 get most recent year average rating from AVERAGE_CUSTOMER_RATING_PER_YEAR:
+
+        2.3 write mID to the output file
+
+    3. if the line indicates a customer (ends with nothing)
+        3.1 save the cID and validate it
+
+        3.2 get most recent year average rating from AVERAGE_CUSTOMER_RATING_PER_YEAR:
+
+        3.3 make predictions with:
+            pred = min(round((avg_customer_rating*5.5 + avg_movie_rating*4.5)/10,1),5.0)
+
+        3.4 add prediction and actual score in arrays
+        3.5 write predicted customer rating in file
+
+    4. calculate RMSE with predictions[], actuals[]
+    """
     predictions = []
     actual = []
-    mID = 0
 
     # iterate throught the file reader line by line
     for line in reader:
-    # need to get rid of the '\n' by the end of the line
+        # need to get rid of the '\n' by the end of the line
         line = line.strip()
         # check if the line ends with a ":", i.e., it's a movie title
 
         if line[-1] == ':':
-		# It's a movie
+                # It's a movie
             mID = int(line.rstrip(':'))
-            assert 1<=mID<=17770
-            assert isinstance(mID,int)
+            assert 1 <= mID <= 17770
+            assert isinstance(mID, int)
+            movie_rating_year_sum = []
+
+            # most recent year average rating
+
+            i = 0
+            while (len(movie_rating_year_sum) <= 0) and (i <= 8):
+                if (mID, 2005 - i) in AVERAGE_MOVIE_RATING_PER_YEAR:
+                    movie_rating_year_sum += [
+                        AVERAGE_MOVIE_RATING_PER_YEAR[(mID, 2005 - i)]]
+                i += 1
+            avg_movie_rating = sum(movie_rating_year_sum) / \
+                len(movie_rating_year_sum)
+
             writer.write(line)
             writer.write('\n')
         else:
-		# It's a customer
+                # It's a customer
             cID = int(line)
-            assert 1<=cID<=2649429
-            assert isinstance(cID,int)
-
-            customer_rating = AVERAGE_CUSTOMER_RATING[cID]
-            movie_rating = AVERAGE_MOVIE_RATING[mID]
-
-            yr = MOVIE_RELEASE_YEAR[mID]
-
-            # for key,value in AVERAGE_MOVIE_RATING_PER_YEAR.items():
-            #     print(key,value)
-            movie_rating_year_sum = []
+            assert 1 <= cID <= 2649429
+            assert isinstance(cID, int)
             customer_rating_year_sum = []
 
-            if 1998 <= yr <= 2005:
-                # add rating of the release year
-                if (cID,yr) in AVERAGE_CUSTOMER_RATING_PER_YEAR:
-                    customer_rating_year_sum += [AVERAGE_CUSTOMER_RATING_PER_YEAR[(cID,yr)]]
+            # most recent year average rating
+            j = 0
+            while (len(customer_rating_year_sum) <= 0) and (j <= 8):
+                if (cID, 2005 - j) in AVERAGE_CUSTOMER_RATING_PER_YEAR:
+                    customer_rating_year_sum += [
+                        AVERAGE_CUSTOMER_RATING_PER_YEAR[(cID, 2005 - j)]]
+                j += 1
+            avg_customer_rating = sum(
+                customer_rating_year_sum)/len(customer_rating_year_sum)
 
-                for i in range(2):
-                    if (mID,yr+i) in AVERAGE_MOVIE_RATING_PER_YEAR:
-                        movie_rating_year_sum += [AVERAGE_MOVIE_RATING_PER_YEAR[(mID,yr+i)]]
-            else:
-                for i in range(2):
-                    if (mID,2004+i) in AVERAGE_MOVIE_RATING_PER_YEAR:
-                        movie_rating_year_sum += [AVERAGE_MOVIE_RATING_PER_YEAR[(mID,2004+i)]]
+            pred = min(
+                round((avg_customer_rating*5.5 + avg_movie_rating*4.5)/10, 1), 5.0)
 
-            if len(movie_rating_year_sum) == 0:
-                avg_movie_rating = movie_rating
-            else:
-                avg_movie_rating = sum(movie_rating_year_sum)/len(movie_rating_year_sum)
-                # avg_movie_rating = functools.reduce(operator.mul,movie_rating_year_sum,1)**(1/len(movie_rating_year_sum))
-
-
-            for j in range(2005,2006):
-                if (cID,j) in AVERAGE_CUSTOMER_RATING_PER_YEAR:
-                    customer_rating_year_sum += [AVERAGE_CUSTOMER_RATING_PER_YEAR[(cID,j)]]
-
-            if len(customer_rating_year_sum) == 0:
-                avg_customer_rating = customer_rating
-            else:
-                avg_customer_rating = sum(customer_rating_year_sum)/len(customer_rating_year_sum)
-                #avg_customer_rating = functools.reduce(operator.mul,customer_rating_year_sum,1)**(1/len(customer_rating_year_sum))
-
-            # pred = round((avg_movie_rating*1 + avg_customer_rating*1.5)/2.5,1)
-            pred = min(round(( avg_movie_rating * avg_customer_rating**1.1 * customer_rating**1.4 * movie_rating)**(1/4.5)*1.015-0.07,1),5.0)
-
-            assert 1<=pred<=5
+            assert 1 <= pred <= 5
 
             predictions.append(pred)
-            actual.append(ACTUAL_CUSTOMER_RATING[(cID,mID)])
+            actual.append(ACTUAL_CUSTOMER_RATING[(cID, mID)])
             writer.write(str(pred))
             writer.write('\n')
 
     # calculate rmse for predications and actuals
-    # TODO: format: need to 2 decimal places
-    rmse = sqrt(mean(square(subtract(predictions, actual))))
-    # print('rmse:',rmse)
-    assert rmse >0
 
+    rmse = sqrt(mean(square(subtract(predictions, actual))))
+
+    assert rmse > 0
     writer.write(str(rmse)[:4] + '\n')

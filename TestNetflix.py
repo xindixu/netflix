@@ -13,12 +13,12 @@ from numpy import sqrt, square, mean, subtract
 # TestNetflix
 # -----------
 
+
 class TestNetflix (TestCase):
 
     # ----
     # eval
     # ----
-
 
     def test_eval_1(self):
         r = StringIO("10040:\n2417853\n1207062\n2487973\n")
@@ -33,7 +33,7 @@ class TestNetflix (TestCase):
         w = StringIO()
         netflix_eval(r, w)
         pred = w.getvalue().split('\n')
-        self.assertEqual(len(pred),4)
+        self.assertEqual(len(pred), 4)
 
     # test if rmse is less than 1
     def test_rmse(self):
@@ -41,7 +41,9 @@ class TestNetflix (TestCase):
         w = StringIO()
         netflix_eval(r, w)
         rmse = float(w.getvalue()[-5:])
-        self.assertTrue(rmse<1)
+        self.assertTrue(rmse < 1)
+
+
 # ----
 # main
 # ----

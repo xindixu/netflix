@@ -57,7 +57,7 @@ RunNetflix.tmp: RunNetflix.in RunNetflix.out RunNetflix.py Netflix.py
 TestNetflix.tmp: TestNetflix.py Netflix.py
 	$(COVERAGE) run    --branch TestNetflix.py >  TestNetflix.tmp 2>&1
 	$(COVERAGE) report -m --omit=/usr/lib/python3/dist-packages/* >> TestNetflix.tmp
-	# cat TestNetflix.tmp
+	cat TestNetflix.tmp
 
 check:
 	@not_found=0;                                 \
