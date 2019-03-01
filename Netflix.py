@@ -83,11 +83,6 @@ def netflix_eval(reader, writer):
         # check if the line ends with a ":", i.e., it's a movie title
 
         if line[-1] == ':':
-<<<<<<< HEAD
-        # It's a movie
-=======
-                # It's a movie
->>>>>>> dev
             mID = int(line.rstrip(':'))
             assert 1 <= mID <= 17770
             assert isinstance(mID, int)
@@ -107,59 +102,8 @@ def netflix_eval(reader, writer):
             writer.write(line)
             writer.write('\n')
         else:
-<<<<<<< HEAD
-        # It's a customer
-            cID = int(line)
-            assert 1<=cID<=2649429
-            assert isinstance(cID,int)
 
-            customer_rating = AVERAGE_CUSTOMER_RATING[cID]
-            movie_rating = AVERAGE_MOVIE_RATING[mID]
-
-            yr = MOVIE_RELEASE_YEAR[mID]
-
-            movie_rating_year_sum = []
-            customer_rating_year_sum = []
-
-
-            # for i in range(1):
-            #     if (mID,2005 - i) in AVERAGE_MOVIE_RATING_PER_YEAR:
-            #         movie_rating_year_sum += [AVERAGE_MOVIE_RATING_PER_YEAR[(mID,2005 - i)]]
-
-            # if len(movie_rating_year_sum) == 0:
-            #     avg_movie_rating = movie_rating
-            # else:
-            #     avg_movie_rating = sum(movie_rating_year_sum)/len(movie_rating_year_sum)
-
-            i = 0
-            while (len(movie_rating_year_sum) <= 0) and (i <= 8):
-                if (mID,2005 - i) in AVERAGE_MOVIE_RATING_PER_YEAR:
-                    movie_rating_year_sum += [AVERAGE_MOVIE_RATING_PER_YEAR[(mID,2005 - i)]]
-                i += 1
-            avg_movie_rating = sum(movie_rating_year_sum)/len(movie_rating_year_sum)
-                
-
-            # for j in range(2005,2006):
-            #     if (cID,j) in AVERAGE_CUSTOMER_RATING_PER_YEAR:
-            #         customer_rating_year_sum += [AVERAGE_CUSTOMER_RATING_PER_YEAR[(cID,j)]]
-
-            # if len(customer_rating_year_sum) == 0:
-            #     avg_customer_rating = customer_rating
-            # else:
-            #     avg_customer_rating = sum(customer_rating_year_sum)/len(customer_rating_year_sum)
-
-            j = 0
-            while (len(customer_rating_year_sum) <= 0) and (j <= 8):
-                if (cID,2005 - j) in AVERAGE_CUSTOMER_RATING_PER_YEAR:
-                    customer_rating_year_sum += [AVERAGE_CUSTOMER_RATING_PER_YEAR[(cID,2005 - j)]] 
-                j += 1  
-            avg_customer_rating = sum(customer_rating_year_sum)/len(customer_rating_year_sum)           
-               
-            #pred = min(round((avg_customer_rating**0.6 * avg_movie_rating**0.4),1),5.0)
-            pred = min(round((avg_customer_rating*5.5 + avg_movie_rating*4.5)/10,1),5.0)
-            assert 1<=pred<=5
-=======
-                # It's a customer
+            # It's a customer
             cID = int(line)
             assert 1 <= cID <= 2649429
             assert isinstance(cID, int)
@@ -179,7 +123,7 @@ def netflix_eval(reader, writer):
                 round((avg_customer_rating*5.5 + avg_movie_rating*4.5)/10, 1), 5.0)
 
             assert 1 <= pred <= 5
->>>>>>> dev
+
 
             predictions.append(pred)
             actual.append(ACTUAL_CUSTOMER_RATING[(cID, mID)])
@@ -189,11 +133,5 @@ def netflix_eval(reader, writer):
     # calculate rmse for predications and actuals
 
     rmse = sqrt(mean(square(subtract(predictions, actual))))
-<<<<<<< HEAD
-    #print('rmse:',rmse)
-    assert rmse >0
-=======
->>>>>>> dev
-
     assert rmse > 0
     writer.write(str(rmse)[:4] + '\n')
