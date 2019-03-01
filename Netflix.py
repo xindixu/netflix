@@ -43,7 +43,7 @@ AVERAGE_MOVIE_RATING_PER_YEAR = create_cache("cache-movieAverageByYear.pickle")
 ACTUAL_CUSTOMER_RATING = create_cache("cache-actualCustomerRating.pickle")
 
 # mID : yr
-# MOVIE_RELEASE_YEAR = create_cache("yz8896-movie_year_cache.pickle")
+MOVIE_RELEASE_YEAR = create_cache("yz8896-movie_year_cache.pickle")
 
 # ------------
 # netflix_eval

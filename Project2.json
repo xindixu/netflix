@@ -1,0 +1,23 @@
+{
+  "Project #2": {
+    "EID": "xx2673",
+    "First Name": "Xindi",
+    "Last Name": "Xu",
+    "E-mail": "xindixu@utexas.edu",
+    "Partner EID": "yz8896",
+    "Partner First Name": "Yirang",
+    "Partner Last Name": "Zhang",
+    "Partner E-mail": "",
+    "GitLab Username": "xindixu",
+    "GitLab URL": "https://gitlab.com/xindixu/netflix",
+    "Git SHA": "",
+    "GitLab Pipeline URL": "",
+    "Number of Created Caches": 1,
+    "Cache 1 filename": "yz8896-movie_year_cache.pickle",
+    "Cache 2 filename": "",
+    "Cache 3 filename": "",
+    "Estimated Completion Time (hours : int)": 40,
+    "Actual    Completion Time (hours : int)": 38,
+    "Comments": ""
+  }
+}
