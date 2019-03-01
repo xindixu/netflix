@@ -1,9 +1,15 @@
-<<<<<<< HEAD
-commit ac19bfa9a5b880a43ec433550e4724a82690e1ce
-Author: Xindi Xu <xindixu@utexas.edu>
-Date:   Tue Feb 19 15:32:55 2019 -0600
+commit 524c2925bff1d0fb7858011aa293d290c33d6678
+Author: Xindi Xu <xx2673@cs.utexas.edu>
+Date:   Wed Feb 20 13:34:17 2019 -0600
 
-=======
+    add cache description
+
+commit c37af918d274a9eb1c824c16ef0b91dd6338b8f5
+Author: Xindi Xu <xx2673@cs.utexas.edu>
+Date:   Wed Feb 20 13:21:01 2019 -0600
+
+    connect to CS machine, sync
+
 commit 4e0153d9cc8f1e23ec73a56b408d02bdbbf9b858
 Author: Xindi Xu <xindixu@utexas.edu>
 Date:   Tue Feb 19 17:00:52 2019 -0600
@@ -20,5 +26,4 @@ commit ac19bfa9a5b880a43ec433550e4724a82690e1ce
 Author: Xindi Xu <xindixu@utexas.edu>
 Date:   Tue Feb 19 15:32:55 2019 -0600
 
->>>>>>> 24db1023101bd29856b198227d8aa7cd79643e18
     init

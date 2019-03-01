@@ -83,6 +83,7 @@ def netflix_eval(reader, writer):
         # check if the line ends with a ":", i.e., it's a movie title
 
         if line[-1] == ':':
+                # It's a movie
             mID = int(line.rstrip(':'))
             assert 1 <= mID <= 17770
             assert isinstance(mID, int)
@@ -102,8 +103,7 @@ def netflix_eval(reader, writer):
             writer.write(line)
             writer.write('\n')
         else:
-
-            # It's a customer
+                # It's a customer
             cID = int(line)
             assert 1 <= cID <= 2649429
             assert isinstance(cID, int)
@@ -124,7 +124,6 @@ def netflix_eval(reader, writer):
 
             assert 1 <= pred <= 5
 
-
             predictions.append(pred)
             actual.append(ACTUAL_CUSTOMER_RATING[(cID, mID)])
             writer.write(str(pred))
@@ -133,5 +132,6 @@ def netflix_eval(reader, writer):
     # calculate rmse for predications and actuals
 
     rmse = sqrt(mean(square(subtract(predictions, actual))))
+
     assert rmse > 0
     writer.write(str(rmse)[:4] + '\n')
