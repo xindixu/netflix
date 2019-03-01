@@ -148,7 +148,7 @@ def netflix_eval(reader, writer):
     # calculate rmse for predications and actuals
     # TODO: format: need to 2 decimal places
     rmse = sqrt(mean(square(subtract(predictions, actual))))
-    print('rmse:',rmse)
+    #print('rmse:',rmse)
     assert rmse >0
 
     writer.write(str(rmse)[:4] + '\n')
