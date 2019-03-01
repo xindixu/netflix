@@ -13,19 +13,19 @@ from numpy import sqrt, square, mean, subtract
 # TestNetflix
 # -----------
 
+
 class TestNetflix (TestCase):
 
     # ----
     # eval
     # ----
 
-
     def test_eval_1(self):
         r = StringIO("10040:\n2417853\n1207062\n2487973\n")
         w = StringIO()
         netflix_eval(r, w)
         self.assertEqual(
-            w.getvalue(), "10040:\n3.3\n3.2\n3.6\n0.83\n")
+            w.getvalue(), "10040:\n3.6\n3.5\n3.9\n0.89\n")
 
     # test if it works when there is only one customer
     def test_eval_2(self):
@@ -33,7 +33,7 @@ class TestNetflix (TestCase):
         w = StringIO()
         netflix_eval(r, w)
         pred = w.getvalue().split('\n')
-        self.assertEqual(len(pred),4)
+        self.assertEqual(len(pred), 4)
 
     # test if rmse is less than 1
     def test_rmse(self):
@@ -41,7 +41,9 @@ class TestNetflix (TestCase):
         w = StringIO()
         netflix_eval(r, w)
         rmse = float(w.getvalue()[-5:])
-        self.assertTrue(rmse<1)
+        self.assertTrue(rmse < 1)
+
+
 # ----
 # main
 # ----
