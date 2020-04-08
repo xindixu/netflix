@@ -5,4 +5,4 @@ numpy==1.11.0
 pep8==1.7.0
 pylint==1.6.5
 virtualenv==15.1.0
-requests==2.13.0
+requests==2.20.0
